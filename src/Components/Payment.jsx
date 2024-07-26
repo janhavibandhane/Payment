@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -58,9 +56,9 @@ function Payment() {
     };
 
     var options = {
-        key: "rzp_test_PkyiG8HwLHo5Y9",
-        key_secret: "PV0C39YB4yXK7PCCvVZrUC8H", // Move this to a secure server environment
-      amount: parseInt(grandTotal * 100), // Ensure grandTotal is defined
+      key: import.meta.env.VITE_RAZORPAY_KEY,
+      key_secret: import.meta.env.VITE_RAZORPAY_KEY_SECRET,
+      amount: parseInt(grandTotal * 100), 
       currency: "INR",
       order_receipt: 'order_rcptid_' + name,
       name: "E-Bharat",
