@@ -11,7 +11,29 @@ function Signin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    
     const navigate = useNavigate();
+
+    const getErrorMessage = (errorCode) => {
+        switch (errorCode) {
+            case 'auth/email-already-in-use':
+                return 'This email is already in use.';
+            case 'auth/invalid-email':
+                return 'Invalid email address.';
+            case 'auth/operation-not-allowed':
+                return 'Operation not allowed.';
+            case 'auth/weak-password':
+                return 'Password is too weak.';
+            case 'auth/user-disabled':
+                return 'User account is disabled.';
+            case 'auth/user-not-found':
+                return 'User not found.';
+            case 'auth/wrong-password':
+                return 'Incorrect password.';
+            default:
+                return 'An unknown error occurred.';
+        }
+    };
 
     const signupUser = () => {
         createUserWithEmailAndPassword(auth, email, password)
@@ -19,7 +41,7 @@ function Signin() {
             alert("Success");
             navigate('/payment'); // Navigate to /payment on success
         })
-            .catch((error) => setError(error.message));
+            .catch((error) => setError(getErrorMessage(error.code)));
     }
 
     const signInWithGoogle = () => {
@@ -28,7 +50,7 @@ function Signin() {
             alert("Google Sign-in Success");
             navigate('/payment'); // Navigate to /payment on success
         })
-        .catch((error) => setError(error.message));
+        .catch((error) => setError(getErrorMessage(error.code)));
     }
 
     return (
